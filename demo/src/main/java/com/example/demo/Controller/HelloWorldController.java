@@ -1,12 +1,20 @@
 package com.example.demo.Controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
+@RequestMapping("/demo")
 public class HelloWorldController {
-	@RequestMapping("/")
+	
+	@GetMapping("/hello")
 	public String hello(){
 		return "Hey, Spring Boot 的 Hello World ! ";
+	}
+	
+	@GetMapping("/")
+	public String Login(){
+		return "index";
 	}
 }
