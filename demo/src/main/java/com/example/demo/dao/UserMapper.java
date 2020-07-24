@@ -9,5 +9,6 @@ import com.example.demo.model.User;
 @Mapper
 public interface UserMapper {
 	
+	int insertUser(User user);
 	List<User> getAllUser();
 }

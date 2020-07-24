@@ -20,4 +20,14 @@ public class UserService {
 		
 		return users;
 	}
+	
+	public User addUser(String name){
+		
+		User userPo = new User();
+		
+		userPo.setUserName(name);
+		userMapper.insertUser(userPo);
+		
+		return userPo;
+	}
 }
