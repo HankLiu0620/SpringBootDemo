@@ -10,5 +10,9 @@ import com.example.demo.model.User;
 public interface UserMapper {
 	
 	int insertUser(User user);
+	int deleteUser(int userId);
+	User getUserById(int userId);
+	int updateUserById(User user);
 	List<User> getAllUser();
+	
 }

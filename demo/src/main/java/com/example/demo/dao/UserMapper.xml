@@ -13,7 +13,25 @@
 			#{userName}	
 		)
 	</insert>
+	
 	<select id="getAllUser" resultMap="BaseResultMap">
 		select * from user_info
 	</select>
+	
+	<select id="getUserById" parameterType="int" resultMap="BaseResultMap">
+		select * 
+		from user_info
+		where userId = #{userId}
+	</select>
+	
+    <update id="updateUserById" parameterType="com.example.demo.model.User" >
+        update user_info
+        set userName=#{userName}
+        where userId=#{userId}
+    </update>
+	
+	<delete id="deleteUser" parameterType="int">
+		delete from user_info
+		where userId = #{userId}
+	</delete>
 </mapper>

@@ -38,15 +38,52 @@ public class UserController {
 		return "getAllUser";
 	}
 	
-	@GetMapping(value = "/addUser/{name}")
-	public String AddUser(Model model ,@PathVariable("name") String name){
+	@GetMapping(value = "/addUser/{userName}")
+	public String addUser(Model model ,@PathVariable("userName") String userName){
 				
-		User newUser = userService.addUser(name);
+		User newUser = userService.addUser(userName);
 		
-		model.addAttribute("newUserName",name);
+		model.addAttribute("newUserName",userName);
 		
 		LOGGER.info("Inserting {} to Db ...",newUser.getUserName());
 				
 		return "addUser";
+	}
+	
+	@GetMapping(value = "/getUserById/{userId}")
+	public String getUserById(Model model ,@PathVariable("userId") int userId){
+			
+		String userName = userService.getUserById(userId).getUserName();
+		
+		model.addAttribute("userName",userName);
+		
+		LOGGER.info("Get {} from Db ...",userName);
+				
+		return "getUserById";
+	}
+	
+	@GetMapping(value = "/updateUserById/{userId}/{userName}")
+	public String updateUserById(Model model ,@PathVariable("userId") int userId ,@PathVariable("userName") String userName){
+		
+		userService.updateUserById(userId,userName);
+		
+		model.addAttribute("userId",userId);
+		
+		LOGGER.info("Update userId = {} from Db ...",userId);
+				
+		return "updateUserById";
+	}
+	
+	@GetMapping(value = "/deleteUser/{userId}")
+	public String dleteUser(Model model ,@PathVariable("userId") int userId){
+			
+		String userName = userService.getUserById(userId).getUserName();
+		userService.deleteUser(userId);
+		
+		model.addAttribute("deleteUser",userName);
+		
+		LOGGER.info("Delete {} from Db ...",userName);
+				
+		return "deleteUser";
 	}
 }
