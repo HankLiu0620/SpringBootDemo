@@ -23,6 +23,8 @@ public class UserService {
 		
 		List<User> users = userMapper.getAllUser();
 		
+		users.stream().forEach(user -> LOGGER.info("userId : {} , userName : {}",user.getUserId(),user.getUserName()));
+		
 		return users;
 	}
 	
@@ -54,9 +56,11 @@ public class UserService {
 		userMapper.updateUserById(user);
 	}
 	
-	public void deleteUser(int id){
+	public String deleteUser(int userId){
 		
-		userMapper.deleteUser(id);
-
+		String userName = this.getUserById(userId).getUserName();
+		userMapper.deleteUser(userId);
+		
+		return userName;
 	}
 }

@@ -26,11 +26,9 @@ public class UserController {
 	@GetMapping(value = "/getAllUsers")
 	public String SearchUsers(Model model){
 				
-		List<User> users = userService.getAllUser();
-		
 		LOGGER.info("Searching user ...");
 		
-		users.stream().forEach(user -> LOGGER.info("userId : {} , userName : {}",user.getUserId(),user.getUserName()));
+		List<User> users = userService.getAllUser();
 		
 		model.addAttribute("title", "User List");
 		model.addAttribute("userList", users);
@@ -74,11 +72,10 @@ public class UserController {
 		return "updateUserById";
 	}
 	
-	@GetMapping(value = "/deleteUser/{userId}")
-	public String dleteUser(Model model ,@PathVariable("userId") int userId){
+	@GetMapping(value = "/deleteUserById/{userId}")
+	public String deleteUserById(Model model ,@PathVariable("userId") int userId){
 			
-		String userName = userService.getUserById(userId).getUserName();
-		userService.deleteUser(userId);
+		String userName = userService.deleteUser(userId);
 		
 		model.addAttribute("deleteUser",userName);
 		
