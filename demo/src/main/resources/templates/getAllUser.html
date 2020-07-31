@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" 
 	xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="BIG5">
-<title>User List</title>
-</head>
-<body>
-	<div>
-		<h1 th:text = "${title}"></h1>
-		<div th:each = "user:${userList}">
-			<p th:text = "${user.userName}"></p>
+	
+	<head>
+	<meta charset="utf-8">
+	<title>User List</title>
+	</head>
+	<body>
+		<div>
+			<h1 th:text = "${title}"></h1>
+			<table border ="1">
+				<tr>
+					<td>名稱</td>
+					<td>年齡</td>
+				</tr>
+				<tr th:each = "user:${userList}">
+					<td th:text = "${user.userName}"></td>
+					<td th:text = "${user.userAge}"></td>
+				</tr>
+			</table>
 		</div>
-	</div>
-</body>
+	</body>
 </html>

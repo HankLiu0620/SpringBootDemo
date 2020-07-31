@@ -51,21 +51,21 @@ public class UserController {
 	@GetMapping(value = "/getUserById/{userId}")
 	public String getUserById(Model model ,@PathVariable("userId") int userId){
 			
-		String userName = userService.getUserById(userId).getUserName();
+		User user = userService.getUserById(userId);
 		
-		model.addAttribute("userName",userName);
+		model.addAttribute("userinfo",user);
 		
-		LOGGER.info("Get {} from Db ...",userName);
+		LOGGER.info("Get {} from Db ...",user.getUserName());
 				
 		return "getUserById";
 	}
 	
-	@GetMapping(value = "/updateUserById/{userId}/{userName}")
-	public String updateUserById(Model model ,@PathVariable("userId") int userId ,@PathVariable("userName") String userName){
+	@GetMapping(value = "/updateUserById/{userId}/{userAge}")
+	public String updateUserById(Model model ,@PathVariable("userId") int userId ,@PathVariable("userAge") int userAge){
 		
-		userService.updateUserById(userId,userName);
+		User user = userService.updateUserById(userId,userAge);
 		
-		model.addAttribute("userId",userId);
+		model.addAttribute("user",user);
 		
 		LOGGER.info("Update userId = {} from Db ...",userId);
 				

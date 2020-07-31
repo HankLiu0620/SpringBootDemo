@@ -3,14 +3,16 @@
 <mapper namespace="com.example.demo.dao.UserMapper">
 
 	<resultMap id="BaseResultMap" type="com.example.demo.model.User">
-		<id column="userId" jdbcType="INTEGER" property="userId"/>
-		<result column="userName" jdbcType="NVARCHAR" property="userName"/>
+		<id column="user_id" jdbcType="INTEGER" property="userId"/>
+		<result column="user_name" jdbcType="NVARCHAR" property="userName"/>
+		<result column="user_age" jdbcType="INTEGER" property="userAge"/>
 	</resultMap>
 
 	<insert id="insertUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="userId">
-		insert into user_info(userName)
+		insert into user_info(userName,userAge)
 		values (
-			#{userName}	
+			#{userName}
+			#{userAge}	
 		)
 	</insert>
 	
@@ -21,13 +23,13 @@
 	<select id="getUserById" parameterType="int" resultMap="BaseResultMap">
 		select * 
 		from user_info
-		where userId = #{userId}
+		where user_id = #{userId}
 	</select>
 	
     <update id="updateUserById" parameterType="com.example.demo.model.User" >
         update user_info
-        set userName=#{userName}
-        where userId=#{userId}
+        set user_age=#{userAge}
+        where user_id=#{userId} 
     </update>
 	
 	<delete id="deleteUser" parameterType="int">

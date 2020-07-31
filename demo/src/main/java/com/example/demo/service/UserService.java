@@ -23,7 +23,7 @@ public class UserService {
 		
 		List<User> users = userMapper.getAllUser();
 		
-		users.stream().forEach(user -> LOGGER.info("userId : {} , userName : {}",user.getUserId(),user.getUserName()));
+		users.stream().forEach(user -> LOGGER.info("userId : {} , userName : {} , userAge : {}",user.getUserId(),user.getUserName(),user.getUserAge()));
 		
 		return users;
 	}
@@ -45,15 +45,17 @@ public class UserService {
 		return userPo;
 	}
 	
-	public void updateUserById(int userId,String userName){
+	public User updateUserById(int userId,int userAge){
 		
 		User user = this.getUserById(userId);
 		
-		LOGGER.info("Updare {} name to {} ",user.getUserName(),userName);
+		LOGGER.info("Updare {} age to {} ",user.getUserName(),userAge);
 		
-		user.setUserName(userName);
+		user.setUserAge(userAge);
 		
 		userMapper.updateUserById(user);
+		
+		return user;
 	}
 	
 	public String deleteUser(int userId){
