@@ -14,11 +14,33 @@
 					<td>名稱</td>
 					<td>年齡</td>
 				</tr>
-				<tr th:each = "user:${userList}">
+				<tr th:each = "user:${userList}" style="text-algin:center">
 					<td th:text = "${user.userName}"></td>
-					<td th:text = "${user.userAge}"></td>
+					<td>
+					 	<span id = "userAge" th:text = "${user.userAge}"></span>
+					 	<input type="text" id = "userAgeTxtbox" th:value = "${user.userAge}"  style="display:none" maxlength = 2 size = 2>
+					</td>
 				</tr>
 			</table>
 		</div>
+		<input type="button" id = "updateAge" value = "更新年齡"  onclick="updateAge()"/>
 	</body>
+	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script>
+		var flag = true;
+		function updateAge(){
+			if(flag){
+				$("span#userAge").hide();
+				$("input#userAgeTxtbox").show();
+				alert("請更新");
+				flag = false;
+			}else{
+				$("span#userAge").show();
+				$("input#userAgeTxtbox").hide();
+				alert("更新完成");
+				flag = true;
+			}
+		}
+	</script>
 </html>
