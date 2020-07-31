@@ -2,13 +2,14 @@ package com.example.demo.model;
 
 public class User {
 	
-	private String userId;
+	private int userId;
 	private String userName;
+	private int userAge;
 	
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {
@@ -16,5 +17,11 @@ public class User {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public int getUserAge() {
+		return userAge;
+	}
+	public void setUserAge(int userAge) {
+		this.userAge = userAge;
 	}
 }

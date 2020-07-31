@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>User List</title>
+</head>
+<body>
+	<div>
+		Update age to <span th:text = "${user.userAge}"></span> which User Id is <span th:text = "${user.userId}"></span>
+	</div>
+	<div>
+		<input type="button" id = "updateAge" value = "回列表"  onclick="backList()"/>
+	</div>
+</body>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script>
+	
+		function backList(){
+			var url = "/demo/getAllUsers";
+			window.location = url ;
+		}
+	</script>
+</html>

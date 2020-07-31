@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" 
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>User</title>
+	</head>
+	<body>
+		<div>
+			<h1 th:text = "${title}"></h1>
+			<table border ="1">
+				<tr>
+					<td>名稱</td>
+					<td>年齡</td>
+				</tr>
+				<tr>
+					<td th:text = "${userinfo.userName}"></td>
+					<td th:text = "${userinfo.userAge}"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,2 @@
+JAVA_HOME : C:\Program Files\AdoptOpenJDK\jdk-8.0.252.09-hotspot\bin 
+JRE_HOME : C:\Program Files\AdoptOpenJDK\jdk-8.0.252.09-hotspot\jre
