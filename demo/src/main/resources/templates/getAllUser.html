@@ -11,10 +11,12 @@
 			<h1 th:text = "${title}"></h1>
 			<table border ="1">
 				<tr>
+					<td>編號</td>
 					<td>名稱</td>
 					<td>年齡</td>
 				</tr>
 				<tr th:each = "user:${userList}" style="text-algin:center">
+					<td id="userId" th:text = "${user.userId}"></td>
 					<td th:text = "${user.userName}"></td>
 					<td>
 					 	<span id = "userAge" th:text = "${user.userAge}"></span>
@@ -28,18 +30,30 @@
 	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
+	
+		re = /^(0?[1-9]|[1-9][0-9])$/	
+	
 		var flag = true;
+		
 		function updateAge(){
 			if(flag){
 				$("span#userAge").hide();
 				$("input#userAgeTxtbox").show();
 				alert("請更新");
-				flag = false;
+				flag = false;					
 			}else{
-				$("span#userAge").show();
-				$("input#userAgeTxtbox").hide();
-				alert("更新完成");
-				flag = true;
+				var age = parseInt($("#userAgeTxtbox").val());
+				var url = "/demo/updateUserById/"+$("#userId").text()+"/"+age;
+				if(re.test(age)){
+					$("#userAge").text(age);
+					$("span#userAge").show();
+					$("input#userAgeTxtbox").hide();
+					window.location = url ;
+					alert("更新完成");
+					flag = true;
+				}else{
+					alert("格式錯誤")
+				}
 			}
 		}
 	</script>
