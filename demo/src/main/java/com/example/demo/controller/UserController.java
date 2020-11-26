@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
+
+/**
+ * 
+ * http://localhost:8080/demo/demo/getAllUsers
+ * 
+ * */
+
 @Controller
 @RequestMapping("/demo")
 public class UserController {
