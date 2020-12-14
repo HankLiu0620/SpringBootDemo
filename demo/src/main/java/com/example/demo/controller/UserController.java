@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,8 @@ import com.example.demo.service.UserService;
  * */
 
 @Controller
-@RequestMapping("/demo")
+@RequestMapping("/User")
+@Transactional
 public class UserController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -44,16 +46,21 @@ public class UserController {
 		return "getAllUser";
 	}
 	
-	@GetMapping(value = "/addUser/{userName}")
-	public String addUser(Model model ,@PathVariable("userName") String userName){
-				
-		User newUser = userService.addUser(userName);
+	@GetMapping(value = "/save/{userName}/{userAge}")
+	public String save(Model model ,
+			@PathVariable("userName") String userName,
+			@PathVariable("userAge") int userAge){
+		
+		User user = new User();
+		user.setUserName(userName);
+		user.setUserAge(userAge);
+		User newUser = userService.addUser(user);
 		
 		model.addAttribute("newUserName",userName);
 		
 		LOGGER.info("Inserting {} to Db ...",newUser.getUserName());
 				
-		return "addUser";
+		return "redirect:/User/getAllUsers";
 	}
 	
 	@GetMapping(value = "/getUserById/{userId}")
@@ -68,16 +75,17 @@ public class UserController {
 		return "getUserById";
 	}
 	
-	@GetMapping(value = "/updateUserById/{userId}/{userAge}")
-	public String updateUserById(Model model ,@PathVariable("userId") int userId ,@PathVariable("userAge") int userAge){
+	@GetMapping(value = "/updateUserById/{userIds}/{userAges}")
+	public String updateUserById(Model model 
+			,@PathVariable("userIds") int[] userIds 
+			,@PathVariable("userAges") int[] userAges){
 		
-		User user = userService.updateUserById(userId,userAge);
+		for(int i = 0 ; i < userIds.length; i++) {
+			userService.updateUserById(userIds[i],userAges[i]);
+			LOGGER.info("Update userId = {} from Db ...",userIds[i]);
+		}
 		
-		model.addAttribute("user",user);
-		
-		LOGGER.info("Update userId = {} from Db ...",userId);
-				
-		return "updateUserById";
+		return "redirect:/User/getAllUsers";
 	}
 	
 	@GetMapping(value = "/deleteUserById/{userId}")
@@ -90,6 +98,12 @@ public class UserController {
 		LOGGER.info("Delete {} from Db ...",userName);
 				
 		return "deleteUser";
+	}
+	
+	@GetMapping(value = "/addUser")
+	public String addUser(Model model){
+		
+		return "addUser";
 	}
 	
 	@GetMapping(value = "/getExcel")

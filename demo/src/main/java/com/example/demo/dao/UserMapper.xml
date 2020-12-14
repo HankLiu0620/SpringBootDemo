@@ -9,9 +9,9 @@
 	</resultMap>
 
 	<insert id="insertUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="userId">
-		insert into user_info(userName,userAge)
+		insert into user_info(user_name,user_age)
 		values (
-			#{userName}
+			#{userName},
 			#{userAge}	
 		)
 	</insert>

@@ -15,17 +15,23 @@
 					<td>名稱</td>
 					<td>年齡</td>
 				</tr>
-				<tr th:each = "user:${userList}" style="text-algin:center">
-					<td id="userId" th:text = "${user.userId}"></td>
-					<td th:text = "${user.userName}"></td>
+				<tr th:each = "user,status:${userList}" style="text-algin:center">
+					<td th:id="'userId'+${status.index}" th:text = "${user.userId}"></td>
+					<td th:id = "'userName'+${status.index}"th:text = "${user.userName}"></td>
 					<td>
-					 	<span id = "userAge" th:text = "${user.userAge}"></span>
-					 	<input type="text" id = "userAgeTxtbox" th:value = "${user.userAge}"  style="display:none" maxlength = 2 size = 2>
+					 	<span th:id = "userAge" th:text = "${user.userAge}"></span>
+					 	<input type="text" th:id = "'userAgeTxtbox'+${status.index}" name = "userAgeTxtbox" th:value = "${user.userAge}"  style="display:none" maxlength = 2 size = 2>
 					</td>
 				</tr>
 			</table>
 		</div>
-		<input type="button" id = "updateAge" value = "更新年齡"  onclick="updateAge()"/>
+		<span>
+			<input type="button" id = "addUser" value = "新增使用者"  onclick="addUser()"/>			
+		</span>
+		<span>
+			<input type="button" id = "updateAge" value = "更新年齡"  onclick="updateAge()"/>
+		</span>
+		
 	</body>
 	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -34,27 +40,57 @@
 		re = /^(0?[1-9]|[1-9][0-9])$/	
 	
 		var flag = true;
+		var oriAge = getOriAge();
 		
 		function updateAge(){
+			
 			if(flag){
 				$("span#userAge").hide();
-				$("input#userAgeTxtbox").show();
+				$('input[name = "userAgeTxtbox"]').show();
 				alert("請更新");
 				flag = false;					
 			}else{
-				var age = parseInt($("#userAgeTxtbox").val());
-				var url = "/demo/updateUserById/"+$("#userId").text()+"/"+age;
-				if(re.test(age)){
-					$("#userAge").text(age);
-					$("span#userAge").show();
-					$("input#userAgeTxtbox").hide();
+				var changeCnt = 0;
+				var updateUserId = new Array();
+				var updateUserAge= new Array();
+				for(i=0;i<oriAge.length;i++){
+					updateAge = $("input#userAgeTxtbox"+i).val();
+					var age = oriAge[i];
+					if(age != updateAge){
+						if(re.test(updateAge)){
+							var userId = $("#userId"+i).text();
+							updateUserId.push(userId);
+							updateUserAge.push(updateAge);
+							$("#userAge").text(age);
+							$("span#userAge").show();
+							$('input[name = "userAgeTxtbox"]').hide();
+							changeCnt++
+							flag = true;
+						}else{
+							alert("格式錯誤")
+						}
+					}
+				}
+				if(changeCnt > 0){
+					var url = "/demo/User/updateUserById/"+updateUserId+"/"+updateUserAge;
 					window.location = url ;
-					alert("更新完成");
-					flag = true;
-				}else{
-					alert("格式錯誤")
+					alert(changeCnt+"筆資料更新完成");
 				}
 			}
+		}
+		
+		function addUser(){
+			var url = "/demo/User/addUser/";
+			window.location = url ;
+		}
+		
+		function getOriAge() {
+			
+			var oriAge = new Array();
+			$('input[name="userAgeTxtbox"]').each(function (i) {
+				oriAge[i] = $(this).val();
+			})
+			return oriAge;
 		}
 	</script>
 </html>

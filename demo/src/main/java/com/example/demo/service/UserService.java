@@ -41,17 +41,14 @@ public class UserService {
 		return user;
 	}
 	
-	public User addUser(String userName){
+	public User addUser(User user){
 		
-		User userPo = new User();
+		userMapper.insertUser(user);
 		
-		userPo.setUserName(userName);
-		userMapper.insertUser(userPo);
-		
-		return userPo;
+		return user;
 	}
 	
-	public User updateUserById(int userId,int userAge){
+	public void updateUserById(int userId,int userAge){
 		
 		User user = this.getUserById(userId);
 		
@@ -61,7 +58,6 @@ public class UserService {
 		
 		userMapper.updateUserById(user);
 		
-		return user;
 	}
 	
 	public String deleteUser(int userId){

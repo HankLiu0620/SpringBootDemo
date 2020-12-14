@@ -2,12 +2,54 @@
 <html lang="en" 
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>Add User</title>
 </head>
 <body>
 	<div>
 		Insert <a th:utext = "${newUserName}"></a> to DB
 	</div>
+	
+	<table border ="1">
+				<tr>
+					<td>Name: </td>
+					<td>
+						<input type="text" id = "name"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Age: </td>
+					<td>
+						<input type="text" id = "age"/>
+					</td>
+				</tr>
+			</table>
+	<div>
+		<span>
+			<input type="button" id = "saveBtn" value = "save"  onclick="save()"/>
+		</span>
+	</div>
 </body>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script>
+	
+		re = /^(0?[1-9]|[1-9][0-9])$/	
+	
+		function save(){
+			var name = $("#name").val();
+			var age = parseInt($("#age").val());
+			var url = "/demo/User/save/"+name+"/"+age;
+			if(re.test(age)){
+				$("#userAge").text(age);
+				$("span#userAge").show();
+				$("input#userAgeTxtbox").hide();
+				window.location = url ;
+				alert("Successful !!");
+				flag = true;
+			}else{
+				alert("format error...")
+			}
+		}
+	</script>
 </html>
