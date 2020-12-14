@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -89,5 +90,17 @@ public class UserController {
 		LOGGER.info("Delete {} from Db ...",userName);
 				
 		return "deleteUser";
+	}
+	
+	@GetMapping(value = "/getExcel")
+	public String getExcel(){
+			
+		try {
+			userService.createExcel();
+		} catch (IOException e) {
+			LOGGER.error("[getExcel] has Error ....");
+		}
+		
+		return "index";
 	}
 }
